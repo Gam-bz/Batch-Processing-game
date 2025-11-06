@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Batch Processing Demo</h2>
+<p>Add tasks. When you reach 5, they will all process together.</p>
+
+<div id="tasks"></div>
+<button onclick="addTask()">Add Task</button>
+<p id="log"></p>
+
+<script>
+let tasks = [];
+let batchSize = 5;
+let batchCount = 0;
+
+function addTask() {
+  tasks.push("Task " + (tasks.length + 1));
+  document.getElementById("tasks").innerHTML = "Current tasks: " + tasks.join(", ");
+
+  if (tasks.length === batchSize) {
+    processBatch();
+  }
+}
+
+function processBatch() {
+  batchCount++;
+  document.getElementById("log").innerHTML += "<br>Processing batch " + batchCount + "...";
+  
+  setTimeout(() => {
+    document.getElementById("log").innerHTML += "<br>Batch " + batchCount + " completed: " + tasks.join(", ");
+    tasks = [];
+    document.getElementById("tasks").innerHTML = "All tasks processed. Ready for new batch.";
+  }, 1000);
+}
+</script>
+
+</body>
+</html>
